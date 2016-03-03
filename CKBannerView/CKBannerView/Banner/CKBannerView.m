@@ -13,7 +13,6 @@
 @interface CKBannerView ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong         ) UIScrollView            *mainScrollView;
-@property (nonatomic, strong         ) UIPageControl           *mainPageControl;
 @property (nonatomic, assign         ) CGFloat                 widthOfView;
 @property (nonatomic, assign         ) CGFloat                 heightView;
 @property (nonatomic, assign         ) NSInteger               currentPage;
@@ -46,6 +45,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setContentViews];
+        self.imagesArray = images;
     }
     return self;
 }
@@ -68,10 +68,10 @@
     [self ck_initMainScrollView];
     //添加ImageView
     [self ck_addImageviewsForMainScrollWithImageView];
-    //添加timer
-    [self ck_addTimerLoop];
     //添加PageControl
     [self ck_addPageControl];
+    //添加timer
+    [self ck_addTimerLoop];
     
 }
 - (void)layoutSubviews {
@@ -90,17 +90,15 @@
         [self ck_initImageViewButton];
     }
 }
-- (void)setImagesArray:(NSArray *)imagesArray {
-    _imageViewPageControl.numberOfPages = imagesArray.count;
-    [self ck_setImagesArray:imagesArray];
-}
 #pragma mark -  处理图像数据
-- (void)ck_setImagesArray:(NSArray *)imagesArray {
+- (void)setImagesArray:(NSArray *)imagesArray {
+    
     _imagesArray = imagesArray;
     id imageInfo = imagesArray[0];
     if ([imageInfo isKindOfClass:[NSString class]]) {
         self.isImageWithURL = YES;
     }
+    _imageViewPageControl.numberOfPages = imagesArray.count;
 }
 #pragma 添加PageControl
 - (void)ck_addPageControl{
