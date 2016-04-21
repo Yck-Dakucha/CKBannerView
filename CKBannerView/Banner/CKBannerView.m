@@ -39,6 +39,14 @@
     return instance;
 }
 #pragma -- mark 遍历初始化方法
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self setContentViews];
+    }
+    return self;
+}
 - (instancetype)initWithFrame: (CGRect)frame
                    WithImages: (NSArray *)images
 {
