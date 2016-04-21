@@ -26,6 +26,7 @@
 //用于确定滚动式由人导致的还是计时器到了,系统帮我们滚动的,YES,则为系统滚动,NO则为客户滚动(ps.在客户端中客户滚动一个广告后,这个广告的计时器要归0并重新计时)
 @property (nonatomic, assign         ) BOOL isTimeUp;
 @property (nonatomic, assign         ) BOOL isImageWithURL;
+@property (nonatomic, assign         ) BOOL isLocalImage;
 
 
 @end
@@ -104,7 +105,11 @@
     _imagesArray = imagesArray;
     id imageInfo = imagesArray[0];
     if ([imageInfo isKindOfClass:[NSString class]]) {
-        self.isImageWithURL = YES;
+        if ([(NSString *)imageInfo hasPrefix:@"http"]) {
+            self.isImageWithURL = YES;
+        }else {
+            self.isLocalImage = YES;
+        }
     }
     _imageViewPageControl.numberOfPages = imagesArray.count;
 }
@@ -219,8 +224,10 @@
 }
 
 - (void)ck_setIamgeToImageView:(UIImageView *)imageView WithImage:(id)iamgeInfo {
-    if (_isImageWithURL) {
+    if (self.isImageWithURL) {
         [imageView sd_setImageWithURL:[NSURL URLWithString:(NSString *)iamgeInfo]];
+    }else if (self.isLocalImage) {
+        [imageView setImage:[UIImage imageNamed:(NSString *)iamgeInfo]];
     }else {
         [imageView setImage:(UIImage *)iamgeInfo];
     }
