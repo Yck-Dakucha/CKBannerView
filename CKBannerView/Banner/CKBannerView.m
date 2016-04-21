@@ -75,8 +75,6 @@
     self.clipsToBounds  = YES;
     //初始化滚动视图
     [self ck_initMainScrollView];
-    //添加ImageView
-    [self ck_addImageviewsForMainScrollWithImageView];
     //添加PageControl
     [self ck_addPageControl];
     //添加timer
@@ -111,6 +109,7 @@
             self.isLocalImage = YES;
         }
     }
+    [self ck_addImageviewsForMainScrollWithImageView];
     _imageViewPageControl.numberOfPages = imagesArray.count;
 }
 #pragma 添加PageControl
