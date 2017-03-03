@@ -75,6 +75,8 @@
     self.clipsToBounds  = YES;
     //初始化滚动视图
     [self ck_initMainScrollView];
+    //添加三个imageView
+    [self ck_addImageviewsForMainScrollWithImageView];
     //添加PageControl
     [self ck_addPageControl];
     //添加timer
@@ -109,7 +111,9 @@
             self.isLocalImage = YES;
         }
     }
-    [self ck_addImageviewsForMainScrollWithImageView];
+    [self ck_setIamgeToImageView:_leftImageView   WithImage:_imagesArray.lastObject];
+    [self ck_setIamgeToImageView:_centerImageView WithImage:_imagesArray[0]];
+    [self ck_setIamgeToImageView:_rightImageView  WithImage:_imagesArray[1]];
     _imageViewPageControl.numberOfPages = imagesArray.count;
 }
 #pragma 添加PageControl
@@ -166,9 +170,6 @@
     [_mainScrollView addSubview:_centerImageView];
     [_mainScrollView addSubview:_rightImageView];
 
-    [self ck_setIamgeToImageView:_leftImageView   WithImage:_imagesArray.lastObject];
-    [self ck_setIamgeToImageView:_centerImageView WithImage:_imagesArray[0]];
-    [self ck_setIamgeToImageView:_rightImageView  WithImage:_imagesArray[1]];    
 }
 #pragma mark -  设置计时器
 - (void)ck_addTimerLoop{
